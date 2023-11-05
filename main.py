@@ -24,8 +24,17 @@ def setup_window():
     return window
 
 
+def create_canvas(img):
+    canvas = Canvas(width=200, height=224)
+    canvas.create_image(100, 112, image=img)
+    return canvas
+
+
 def main():
     window = setup_window()
+    image = PhotoImage(file="tomato.png")
+    canvas = create_canvas(image)
+    canvas.pack()
     window.mainloop()
 
 
