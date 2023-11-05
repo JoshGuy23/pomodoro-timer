@@ -10,6 +10,7 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 CHECKMARK = "✓"
+reps = 0
 
 # ---------------------------- TIMER RESET ------------------------------- # 
 
@@ -17,7 +18,26 @@ CHECKMARK = "✓"
 
 
 def start_timer():
-    count_down(5 * 60)
+    global reps
+    reps += 1
+    work_sec = 10
+    short_break_sec = 5
+    long_break_sec = 15
+
+    if reps % 8 == 0:
+        timer_time = long_break_sec
+        timer_label.config(text="Break", fg=RED)
+    elif reps % 2 == 0:
+        timer_time = short_break_sec
+        timer_label.config(text="Break", fg=PINK)
+    else:
+        timer_time = work_sec
+        timer_label.config(text="Work", fg=GREEN)
+
+    count_down(timer_time)
+
+    if reps == 8:
+        reps = 0
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -31,6 +51,8 @@ def count_down(count):
 
     if count > 0:
         window.after(1000, count_down, count - 1)
+    else:
+        start_timer()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
