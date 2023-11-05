@@ -17,7 +17,7 @@ CHECKMARK = "✓"
 
 
 def start_timer():
-    count_down(WORK_MIN * 60)
+    count_down(5 * 60)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -26,7 +26,9 @@ def start_timer():
 def count_down(count):
     count_min = math.floor(count / 60)
     count_sec = count % 60
-    canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
+
+    canvas.itemconfig(timer_text, text=f"{count_min:02d}:{count_sec:02d}")
+
     if count > 0:
         window.after(1000, count_down, count - 1)
 
