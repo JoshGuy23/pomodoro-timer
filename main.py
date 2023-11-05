@@ -44,6 +44,7 @@ def start_timer():
 
 
 def count_down(count):
+    global reps
     count_min = math.floor(count / 60)
     count_sec = count % 60
 
@@ -53,6 +54,13 @@ def count_down(count):
         window.after(1000, count_down, count - 1)
     else:
         start_timer()
+
+        marks = ""
+        sessions = math.floor(reps / 2)
+        for _ in range(sessions):
+            marks += CHECKMARK
+        check_label.config(text=marks)
+
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -70,7 +78,7 @@ timer_label = Label(text="Timer", fg=GREEN, bg=YELLOW)
 timer_label.config(font=(FONT_NAME, 50))
 timer_label.grid(column=1, row=0)
 
-check_label = Label(text=CHECKMARK, fg=GREEN, bg=YELLOW)
+check_label = Label(fg=GREEN, bg=YELLOW)
 check_label.grid(column=1, row=3)
 
 start_button = Button(text="Start", highlightthickness=0, command=start_timer)
